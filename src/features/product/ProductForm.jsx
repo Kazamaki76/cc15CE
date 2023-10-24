@@ -1,7 +1,11 @@
+import { useRef, useState,useEffect } from "react";
+import axios from "axios";
+import Loading from "../../components/Loading";
+import CreateProductButton from "./CreateProductButton"; 
+import ProductList from "./ProductList"
 
 
-
-export default function CreateProduct({ onSuccess, onSubmit }) {
+export default function ProductForm({ onSuccess, onSubmit }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
