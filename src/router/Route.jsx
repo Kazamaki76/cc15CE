@@ -8,8 +8,15 @@ import Authenticated from "../features/auth/Authenticate";
 import RedirectIfAuthenticated from "../features/auth/RedirectIfAuthenticated";
 import CreateProduct from "../features/product/CreateProductButton";
 
+import Product from "../pages/Product";
+import ProductList from "../features/product/ProductList";
+
+
 
 const router = createBrowserRouter([
+
+
+  
   {
     path: "/",
     element: (
@@ -30,12 +37,39 @@ const router = createBrowserRouter([
       </RedirectIfAuthenticated>
     ),
   },
+
   {
-    path: "/allproduct",
+    path: "/product",
     element: 
 
     <CreateProduct />,
   },
+  {
+    path: "/product",
+    element: (
+      <Authenticated>
+        <Layout />
+      </Authenticated>
+    ),
+    children: [
+      { path:"/product",
+      element:<ProductList/>},
+     
+    ],
+  },
+  {
+    path: "/product",
+    element: (
+      <Authenticated>
+        <Layout />
+      </Authenticated>
+    ),
+    children: [
+      { path:"/product/:id",
+      element:<Product/>},
+     
+    ],
+  }
   // {
   //   path: "/createproduct",
   //   element: <ProductForm />,

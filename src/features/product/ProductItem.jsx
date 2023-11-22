@@ -10,3 +10,7 @@ export default function ProductItem ({ postObj,deletePost }) {
     </div>
   );
 }
+
+
+
+
