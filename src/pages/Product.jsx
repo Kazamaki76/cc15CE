@@ -1,37 +1,60 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./Product.scss";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useParams } from "react-router-dom";
+import axios from "../config/axios";
+import { useAuth } from "../hooks/use-auth";
+import { AddCard } from "@mui/icons-material";
+import { useCart } from "../hooks/use-cart";
 
 function Product() {
   const [selectImg, setSelectImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { id } = useParams();
+  const { authUser } = useAuth();
+  const { addCart, products } = useCart();
 
-  const images = [
-    "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Pokemon_Trading_Card_Game_cardback.jpg/220px-Pokemon_Trading_Card_Game_cardback.jpg",
-    "https://www.mypokecard.com/en/Gallery/my/galery/LLTMnq94dp5.jpg",
-  ];
+  console.log(id);
+  console.log(authUser.id);
+
+  // const addCart = async () => {
+  //   const cartAdded = { id, quantity, authUser: authUser.id };
+  //   console.log(cartAdded);
+  //   const res = await axios.post("/cart/addCart", cartAdded);
+  //   console.log(res.data);
+  // };
+
+  const handleAddCart = () => {
+    const cartAdded = { id, quantity, authUser: authUser.id };
+
+    // console.log(addCart)
+    addCart(cartAdded);
+  };
+
+  let targetProduct = null;
+
+  targetProduct = products.find((x) => x.id === +id);
+
   return (
     <div className="product">
       <div className="left">
         <div className="images">
-          <img src={images[0]} alt="" onClick={(e) => setSelectImg(0)} />
-          <img src={images[1]} alt="" onClick={(e) => setSelectImg(1)} />
+          <img
+            src={targetProduct.image}
+            alt=""
+            onClick={(e) => setSelectImg(0)}
+          />
         </div>
         <div className="mainImg">
-          <img src={images[selectImg]} alt="" />
+          <img src={targetProduct.image} alt="" />
         </div>
       </div>
       <div className="right">
-        <h1>Title</h1>
-        <span>$199</span>
+        <h1>{targetProduct.name}</h1>
+        <span>{targetProduct.price}</span>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto saepe
-          tempore earum aliquid enim velit aliquam aut, eius necessitatibus
-          quibusdam beatae iure rem! Corrupti eaque libero fugit laudantium
-          commodi eum.
-        </p>
+        <p>{targetProduct.description}</p>
         <div className="quantity">
           <button
             onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
@@ -41,29 +64,15 @@ function Product() {
           {quantity}
           <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
-        <button className="add">
+        <div className="add" onClick={handleAddCart}>
           <AddShoppingCartIcon />
           Add to cart
-        </button>
-        <div className="links">
-          <div className="item">
-            <FavoriteIcon />
-            Add to wish list
-          </div>
         </div>
+
         <div className="info">
-              <span>Vendor: Polo</span>
-              <span>Product Type: T-Shirt</span>
-              <span>Tag: T-Shirt, Women, Top</span>
-            </div>
-            <hr />
-            <div className="info">
-              <span>DESCRIPTION</span>
-              <hr />
-              <span>ADDITIONAL INFORMATION</span>
-              <hr />
-              <span>FAQ</span>
-            </div>
+          <span>Vendor : CE </span>
+        </div>
+        <hr />
       </div>
     </div>
   );

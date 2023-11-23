@@ -15,7 +15,6 @@ export default function LoginForm() {
     login(input).catch((err) => {
       toast.error(err.response.data.message);
     });
-    console.log(input);
     login(input);
   };
 

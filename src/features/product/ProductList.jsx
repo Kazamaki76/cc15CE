@@ -1,20 +1,8 @@
-import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
-import axios from "axios";
+import { useCart } from "../../hooks/use-cart";
 
 export default function ProductList({ deleteProduct }) {
-  useEffect(() => {
-    getProductList();
-  }, []);
-  const getProductList = async () => {
-    console.log("trigger");
-    const res = await axios.get("/product") ;
-    setProducts(res.data.products)
-    console.log(products)
-    console.log("res", res);
-  };
-  const [products, setProducts] = useState([])
-
+  const { products } = useCart();
 
   return (
     <div className="flex flex-col gap-4">

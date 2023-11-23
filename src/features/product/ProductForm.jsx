@@ -13,9 +13,9 @@ export default function Product({ onSuccess }) {
   const fileEl = useRef(null);
   const [allProduct, setAllProduct] = useState([]);
 
-  console.log("Teste");
+ 
   const createProduct = async (data) => {
-    const res = await axios.post("/product", data);
+    const res = await axios.post("/product/createproduct", data);
     const newProduct = res.data.post;
     setAllProduct([newProduct, ...allProduct]);
   };
@@ -38,6 +38,7 @@ export default function Product({ onSuccess }) {
       const formData = new FormData();
       if (name) {
         formData.append("name", name);
+        
       }
       if (description) {
         formData.append("description", description);
@@ -52,6 +53,8 @@ export default function Product({ onSuccess }) {
       }
 
       setLoading(true);
+      createProduct(formData)
+      
       // await onSubmit(formData); // await undefined()
       onSuccess();
     } catch (err) {
@@ -60,7 +63,7 @@ export default function Product({ onSuccess }) {
       setLoading(false);
     }
   };
-  console.log("gg");
+  
   return (
     <>
       {loading && <Loading />}
@@ -105,6 +108,7 @@ export default function Product({ onSuccess }) {
             }
           }}
         />
+        <button> Submit </button>
         <div className="max-w-[44rem] mx-auto px-8 py-6 flex flex-col gap-4">
           <ProductList allProduct={allProduct} />
         </div>

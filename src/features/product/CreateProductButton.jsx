@@ -4,16 +4,16 @@ import ProductForm from "./ProductForm";
 
 
 
-// function Button({ children, onClick }) {
-//   return (
-//     <div
-//       className="bg-gray-200 hover:bg-gray-300 flex-1 rounded-full text-gray-500 px-3 py-1.5 cursor-pointer flex items-center"
-//       onClick={onClick}
-//     >
-//       {children}
-//     </div>
-//   );
-// }
+function Button({ children, onClick }) {
+  return (
+    <div
+      className="bg-gray-200 hover:bg-gray-300 flex-1 rounded-full text-gray-500 px-3 py-1.5 cursor-pointer flex items-center"
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function CreateProductButton({ createPost }) {
   const [isOpen, setIsOpen] = useState(false);

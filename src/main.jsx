@@ -3,11 +3,14 @@ import App from "./App.jsx";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContextProvider from "./context/AuthContext.jsx";
+import CartContextProvider from "./context/CartContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <AuthContextProvider>
+  <AuthContextProvider>
+    <CartContextProvider>
       <App />
-    </AuthContextProvider>
+    </CartContextProvider>
+  </AuthContextProvider>
   // </React.StrictMode>
 );

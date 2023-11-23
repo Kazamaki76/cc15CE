@@ -8,6 +8,7 @@ import {
 } from "../util/localStorage";
 import { useEffect } from "react";
 
+
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
@@ -30,9 +31,7 @@ export default function AuthContextProvider({ children }) {
   }, []);
 
   const login = async (credential) => {
-    console.log("trigger");
     const res = await axios.post("/auth/login", credential);
-    console.log("res", res);
     addAccessToken(res.data.accessToken);
     setAuthUser(res.data.user);
   };
@@ -51,6 +50,7 @@ export default function AuthContextProvider({ children }) {
     const res = await axios.patch("/user", data);
     setAuthUser({ ...authUser, ...res.data });
   };
+
 
   return (
     <AuthContext.Provider
