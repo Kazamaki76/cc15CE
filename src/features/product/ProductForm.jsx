@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "../../components/Loading";
-import CreateProductButton from "./CreateProductButton";
+
 import ProductList from "./ProductList";
-import { useNavigate } from "react-router-dom";
+
 
 export default function Product({ onSuccess }) {
   const [name, setName] = useState("");

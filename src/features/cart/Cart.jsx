@@ -3,11 +3,14 @@ import { useCart } from "../../hooks/use-cart";
 import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
   const [data, setData] = useState([]);
 
   const { getCart, deleteCart } = useCart();
+  const navigate = useNavigate()
 
   useEffect(() => {
     getCart().then((res) => {
@@ -49,7 +52,7 @@ const Cart = () => {
       <div className="total">
         <span>Subtotal</span>
         <span>${sum}</span>
-        <button onClick={() => console.log("click")}>
+        <button onClick={()  =>navigate("/checkout") }>
           Proceed to checkout
         </button>
       </div>

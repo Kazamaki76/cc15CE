@@ -8,11 +8,13 @@ import HomePage from "../pages/HomePage";
 import Authenticated from "../features/auth/Authenticate";
 import RedirectIfAuthenticated from "../features/auth/RedirectIfAuthenticated";
 import CreateProduct from "../features/product/CreateProductButton";
+import Payment from "../features/payment/Payment";
 
 import Product from "../pages/Product";
 import ProductList from "../features/product/ProductList";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
+import PaymentComplete from "../features/payment/PaymentComplete";
 
 export default function Route() {
   const { authUser } = useAuth();
@@ -39,6 +41,18 @@ export default function Route() {
       ),
     },
     { path: "*", element: <Navigate to="/" /> },
+    {
+      path: "/checkout",
+      element: (
+        <Payment/>
+      )
+    },
+    {
+      path: "/paymenyconfirm",
+      element: (
+        <PaymentComplete/>
+      )
+    }
   ];
 
   const admin = [
@@ -54,6 +68,7 @@ export default function Route() {
         </RedirectIfAuthenticatedAdmin>
       ),
     },
+    
   ];
 
   const selectChild = authUser?.isAdmin === true ? admin : user;
