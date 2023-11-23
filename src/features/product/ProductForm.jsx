@@ -3,6 +3,7 @@ import axios from "axios";
 import Loading from "../../components/Loading";
 import CreateProductButton from "./CreateProductButton";
 import ProductList from "./ProductList";
+import { useNavigate } from "react-router-dom";
 
 export default function Product({ onSuccess }) {
   const [name, setName] = useState("");
@@ -13,11 +14,14 @@ export default function Product({ onSuccess }) {
   const fileEl = useRef(null);
   const [allProduct, setAllProduct] = useState([]);
 
- 
+
+  
   const createProduct = async (data) => {
     const res = await axios.post("/product/createproduct", data);
     const newProduct = res.data.post;
     setAllProduct([newProduct, ...allProduct]);
+    window.location.reload()
+   
   };
 
   useEffect(() => {
@@ -38,7 +42,6 @@ export default function Product({ onSuccess }) {
       const formData = new FormData();
       if (name) {
         formData.append("name", name);
-        
       }
       if (description) {
         formData.append("description", description);
@@ -53,8 +56,8 @@ export default function Product({ onSuccess }) {
       }
 
       setLoading(true);
-      createProduct(formData)
-      
+      createProduct(formData);
+
       // await onSubmit(formData); // await undefined()
       onSuccess();
     } catch (err) {
@@ -63,7 +66,7 @@ export default function Product({ onSuccess }) {
       setLoading(false);
     }
   };
-  
+
   return (
     <>
       {loading && <Loading />}

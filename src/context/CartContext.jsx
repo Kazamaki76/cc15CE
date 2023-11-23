@@ -28,14 +28,26 @@ export default function CartContextProvider({ children }) {
     return res.data;
   };
 
-  const editProduct = async(id, body) => {
+  const editProduct = async (id, body) => {
     const res = await axios.put(`/product/editproduct/${id}`, body);
     return res.data;
   };
 
+  const deleteProduct = async (id) => {
+    await axios.delete(`/product/deleteproduct/${id}`, id);
+  };
+
   return (
     <CartContext.Provider
-      value={{ addCart, getCart, deleteCart, getProductList, products,editProduct }}
+      value={{
+        addCart,
+        getCart,
+        deleteCart,
+        getProductList,
+        products,
+        editProduct,
+        deleteProduct,
+      }}
     >
       {children}
     </CartContext.Provider>
