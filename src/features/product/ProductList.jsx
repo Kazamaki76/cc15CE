@@ -7,7 +7,7 @@ export default function ProductList({ deleteProduct }) {
   return (
     <div className="flex flex-col gap-4">
       {products?.map((el) => (
-        <ProductItem key={el.id} postObj={el} deleteProduct={deleteProduct} />
+        <ProductItem key={el.id} postObj={el} id={el.id} deleteProduct={deleteProduct} />
       ))}
     </div>
   );

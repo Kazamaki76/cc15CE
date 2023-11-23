@@ -51,7 +51,7 @@ export default function AuthContextProvider({ children }) {
     setAuthUser({ ...authUser, ...res.data });
   };
 
-
+console.log(authUser)
   return (
     <AuthContext.Provider
       value={{
