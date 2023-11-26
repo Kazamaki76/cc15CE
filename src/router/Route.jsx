@@ -15,6 +15,8 @@ import ProductList from "../features/product/ProductList";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
 import PaymentComplete from "../features/payment/PaymentComplete";
+import AdminPayment from "../features/payment/AdminPaymentCheck"
+import { CartContext } from "../context/CartContext";
 
 export default function Route() {
   const { authUser } = useAuth();
@@ -68,6 +70,14 @@ export default function Route() {
         </RedirectIfAuthenticatedAdmin>
       ),
     },
+    {
+      path: "/checkpayment",
+      element:(
+        <AdminPayment/>
+
+
+      )
+    }
     
   ];
 

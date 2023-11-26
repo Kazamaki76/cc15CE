@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import Loading from "../../components/Loading";
-import axios from "axios";
+import axios from "../../config/axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Payment({ onSuccess }) {

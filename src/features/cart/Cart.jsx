@@ -4,13 +4,13 @@ import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "../../config/axios";
 
 const Cart = () => {
   const [data, setData] = useState([]);
 
   const { getCart, deleteCart } = useCart();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCart().then((res) => {
@@ -19,6 +19,17 @@ const Cart = () => {
     });
   }, []);
 
+  const PostPayment = () => {
+    // const body = {
+    //   totalPrice: sum,
+    //   orderId: 1,
+    // };
+
+    // const res = await axios.post("payment/update-payment", body);
+    // console.log(res);
+
+    navigate("/checkout");
+  };
   let sum = 0;
 
   data.map((x) => (sum += +x.product.price * x.quantity));
@@ -52,9 +63,7 @@ const Cart = () => {
       <div className="total">
         <span>Subtotal</span>
         <span>${sum}</span>
-        <button onClick={()  =>navigate("/checkout") }>
-          Proceed to checkout
-        </button>
+        <button onClick={() => PostPayment()}>Proceed to checkout</button>
       </div>
     </div>
   );

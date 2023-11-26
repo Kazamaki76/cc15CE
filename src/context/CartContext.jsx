@@ -7,6 +7,7 @@ export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [getslip, setGetslip] = useState([]);
 
   useEffect(() => {
     getProductList();
@@ -37,6 +38,12 @@ export default function CartContextProvider({ children }) {
     await axios.delete(`/product/deleteproduct/${id}`, id);
   };
 
+  const getPayment = async () => {
+    const res = await axios.get("/order/paymentslip");
+    setGetslip(res.data.payment);
+    console.log("yolo", res);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -47,6 +54,8 @@ export default function CartContextProvider({ children }) {
         products,
         editProduct,
         deleteProduct,
+        getPayment,
+        getslip,
       }}
     >
       {children}

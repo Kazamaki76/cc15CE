@@ -1,9 +1,5 @@
-import React from 'react'
-
 const PaymentComplete = () => {
-  return (
-    <div>PaymentComplete</div>
-  )
-}
+  return <div>PaymentComplete</div>;
+};
 
-export default PaymentComplete
+export default PaymentComplete;
