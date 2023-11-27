@@ -15,12 +15,21 @@ import ProductList from "../features/product/ProductList";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
 import PaymentComplete from "../features/payment/PaymentComplete";
-import AdminPayment from "../features/payment/AdminPaymentCheck"
+import AdminPayment from "../features/payment/AdminPaymentCheck";
 import { CartContext } from "../context/CartContext";
+import AdminLayout from "../layout/AdminLayout";
 
 export default function Route() {
   const { authUser } = useAuth();
   const user = [
+    {
+      path: "/login",
+      element: (
+        <RedirectIfAuthenticated>
+          <LoginPage />
+        </RedirectIfAuthenticated>
+      ),
+    },
     {
       path: "/",
       element: (
@@ -34,34 +43,18 @@ export default function Route() {
         { path: "/product/:id", element: <Product /> },
       ],
     },
-    {
-      path: "/login",
-      element: (
-        <RedirectIfAuthenticated>
-          <LoginPage />
-        </RedirectIfAuthenticated>
-      ),
-    },
     { path: "*", element: <Navigate to="/" /> },
     {
       path: "/checkout",
-      element: (
-        <Payment/>
-      )
+      element: <Payment />,
     },
     {
       path: "/paymenyconfirm",
-      element: (
-        <PaymentComplete/>
-      )
-    }
+      element: <PaymentComplete />,
+    },
   ];
 
   const admin = [
-    {
-      path: "/admin/createproduct",
-      element: <CreateProduct /> 
-    },
     {
       path: "/login",
       element: (
@@ -71,14 +64,22 @@ export default function Route() {
       ),
     },
     {
-      path: "/checkpayment",
-      element:(
-        <AdminPayment/>
-
-
-      )
-    }
-    
+      path: "/",
+      element: (
+        <Authenticated>
+          <AdminLayout />
+        </Authenticated>
+      ),
+      children: [
+        { path: "/admin/createproduct", element: <CreateProduct /> },
+        { path: "/productlist", element: <ProductList /> },
+        {
+          path: "/checkpayment",
+          element: <AdminPayment />,
+        },
+      ],
+    },
+   
   ];
 
   const selectChild = authUser?.isAdmin === true ? admin : user;

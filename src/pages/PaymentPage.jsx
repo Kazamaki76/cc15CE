@@ -10,16 +10,17 @@ export default function PaymentPage({ obj }) {
   useEffect(() => {
     axios
       .get("/order/paymentslip")
-      .then((res) => setPayment(res.data.payment[0].payment[0].totalPrice))
+      .then((res) => setPayment(res.data.payment[0].payment))
       .catch((error) => console.log(error));
   }, []);
   console.log(obj);
   const { authUser } = useAuth();
   return (
     <>
-    <div>{payment}</div>
+    {/* <div>  {JSON.stringify (payment)}</div>
+    <div> { payment && payment.map ((object,) => (<div> {object.id } </div>) )} </div>
       <div> {authUser.firstName + " " + authUser.lastName}</div>
-      <img src={obj.paymentImage} alt="" />
+      <img src={obj.paymentImage} alt="" /> */}
     </>
   );
 }

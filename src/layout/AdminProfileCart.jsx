@@ -1,27 +1,15 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/use-auth";
-import Cart from "../features/cart/Cart";
 
-export default function ProfileCart() {
-  const [cart, setCart] = useState(false);
+
+export default function AdminProfileCart() {
+  
   const { logout, authUser } = useAuth(); 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   return (
     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-       {cart && <Cart />}
-      <button
-        onClick={() => setCart(!cart)}
-        type="button"
-        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-      >
-        <span className="sr-only"> </span>
-        <span className="material-symbols-outlined">shopping_cart</span>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        />
-      </button>
+       
       {/* Profile dropdown */}
       <div className="relative ml-3">
         <div>
@@ -34,7 +22,7 @@ export default function ProfileCart() {
             aria-haspopup="true"
           >
             <span className="absolute -inset-1.5" />
-            <span className="sr-only">Open user menu</span>
+            <span className="sr-only">Open Admin menu</span>
             <img
               className="h-8 w-8 rounded-full"
               src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
@@ -52,24 +40,7 @@ export default function ProfileCart() {
             tabIndex={-1}
           >
             {/* Active: "bg-gray-100", Not Active: "" */}
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700"
-              role="menuitem"
-              tabIndex={-1}
-              id="user-menu-item-0"
-            >
-              Your Profile
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700"
-              role="menuitem"
-              tabIndex={-1}
-              id="user-menu-item-1"
-            >
-              Settings
-            </a>
+           
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700"

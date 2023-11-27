@@ -6,8 +6,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../config/axios";
 
+
 const Cart = () => {
   const [data, setData] = useState([]);
+  
 
   const { getCart, deleteCart } = useCart();
   const navigate = useNavigate();
@@ -31,13 +33,14 @@ const Cart = () => {
     navigate("/checkout");
   };
   let sum = 0;
+  
 
   data.map((x) => (sum += +x.product.price * x.quantity));
 
   return (
     <div className="cart">
       <h1>Product in cart</h1>
-
+     
       {data?.map((item) => (
         <div className="item" key={item.id}>
           <img src={item.product.image} alt="" />

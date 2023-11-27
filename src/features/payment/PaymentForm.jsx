@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import Loading from "../../components/Loading";
 import axios from "../../config/axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/use-auth";
 
 export default function Payment({ onSuccess }) {
   const [file, setFile] = useState(null);
@@ -13,13 +14,14 @@ export default function Payment({ onSuccess }) {
   const createPayment = async (data) => {
     const res = await axios.post("/order/payment", data);
     console.log(res);
+    
   };
-
+  const {authUser} = useAuth()
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
       const formData = new FormData();
-
+      formData.append("userId" , authUser.id)
       if (file) {
         formData.append("image", file);
       }
@@ -40,6 +42,7 @@ export default function Payment({ onSuccess }) {
     <>
       {loading && <Loading />}
       <form className="flex flex-col gap-4" onSubmit={handleSubmitForm}>
+
         {file ? (
           <div
             onClick={() => fileEl.current.click()}
