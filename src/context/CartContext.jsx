@@ -24,6 +24,7 @@ export default function CartContextProvider({ children }) {
   const getCart = async () => {
     return await axios.get("/cart/getCart");
   };
+
   const deleteCart = async (cartItemId) => {
     const res = await axios.delete(`/cart/deleteCart/${cartItemId}`);
     return res.data;
@@ -44,6 +45,16 @@ export default function CartContextProvider({ children }) {
     console.log("yolo", res);
   };
 
+  const updateStatus = async (id,status) => {
+    const body = {
+      status
+    }
+    await axios.patch(`/payment/updatestatus/${id}`, body );
+
+  };
+
+  
+
   return (
     <CartContext.Provider
       value={{
@@ -56,6 +67,8 @@ export default function CartContextProvider({ children }) {
         deleteProduct,
         getPayment,
         getslip,
+        updateStatus,
+       
       }}
     >
       {children}

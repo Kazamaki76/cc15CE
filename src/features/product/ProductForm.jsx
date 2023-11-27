@@ -4,7 +4,6 @@ import Loading from "../../components/Loading";
 
 import ProductList from "./ProductList";
 
-
 export default function Product({ onSuccess }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -15,13 +14,12 @@ export default function Product({ onSuccess }) {
   const [allProduct, setAllProduct] = useState([]);
 
 
-  
   const createProduct = async (data) => {
     const res = await axios.post("/product/createproduct", data);
     const newProduct = res.data.post;
     setAllProduct([newProduct, ...allProduct]);
-    window.location.reload()
-   
+    window.location.reload();
+    console.log("hello")
   };
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function Product({ onSuccess }) {
   return (
     <>
       {loading && <Loading />}
-      <form className="flex flex-col gap-4" onSubmit={handleSubmitForm}>
+      <form className="flex flex-col gap-4 " onSubmit={handleSubmitForm}>
         <textarea
           placeholder={"Product name "}
           value={name}
@@ -112,7 +110,7 @@ export default function Product({ onSuccess }) {
           }}
         />
         <button> Submit </button>
-        <div className="max-w-[44rem] mx-auto px-8 py-6 flex flex-col gap-4">
+        <div className="flex   flex-col gap-4 bg-purple-500 ">
           <ProductList allProduct={allProduct} />
         </div>
       </form>

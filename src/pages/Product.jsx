@@ -58,6 +58,7 @@ function Product() {
         <div className="quantity">
           <button
             onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
+            // default = 1       prev = 1 ใช้ 1 ไม่ใช่ เอา prev -1
           >
             -
           </button>

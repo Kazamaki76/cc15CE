@@ -16,13 +16,14 @@ const Payment = () => {
     });
   }, []);
 
-  const PostPayment = async (sum) => {
+  const PostPayment = async (sum, orderId) => {
     const body = {
       totalPrice: sum,
-      orderId: 1,
-    };
+      orderId: orderId,
+    }
 
     const res = await axios.post("payment/update-payment", body);
+
     console.log(res);
   };
 
@@ -36,8 +37,8 @@ const Payment = () => {
       <div>{sum}</div>
       <div>
         <PaymentForm
-          onSuccess={() => {
-            PostPayment(sum);
+          onSuccess={(orderId) => {
+            PostPayment(sum, orderId);
           }}
         />
       </div>

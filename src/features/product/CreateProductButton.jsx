@@ -2,8 +2,6 @@ import Modal from "../../components/Modal";
 import { useState } from "react";
 import ProductForm from "./ProductForm";
 
-
-
 function Button({ children, onClick }) {
   return (
     <div
@@ -19,15 +17,16 @@ export default function CreateProductButton({ createPost }) {
   const [isOpen, setIsOpen] = useState(false);
   console.log("createProduct", createPost);
   return (
-    <div className="bg-white border rounded-lg px-4 py-3 shadow flex gap-2">
-      product
-      <Modal
-        title="Create post"
-        open={isOpen}
-        maxWidth={32}
-        onClose={() => setIsOpen(false)}
-      ></Modal>
-      <ProductForm onSuccess={() => {}} />
+    <div className="flex w-full justify-center">
+      <div className="flex  flex-col items-center justify-center w-5/6 ">
+        <Modal
+          title="Create post"
+          open={isOpen}
+          maxWidth={32}
+          onClose={() => setIsOpen(false)}
+        ></Modal>
+        <ProductForm onSuccess={() => {}} />
+      </div>
     </div>
   );
 }

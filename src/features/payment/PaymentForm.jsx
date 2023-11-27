@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-
 import Loading from "../../components/Loading";
 import axios from "../../config/axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
+import { useCart } from "../../hooks/use-cart";
 
 export default function Payment({ onSuccess }) {
   const [file, setFile] = useState(null);
@@ -11,25 +11,29 @@ export default function Payment({ onSuccess }) {
   const fileEl = useRef(null);
 
   const navigate = useNavigate();
-  const createPayment = async (data) => {
+  let createPayment = async (data) => {
     const res = await axios.post("/order/payment", data);
     console.log(res);
-    
+
+    return res.data.orderId;
   };
-  const {authUser} = useAuth()
+  const { authUser } = useAuth();
+  
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
+
       const formData = new FormData();
-      formData.append("userId" , authUser.id)
+      formData.append("userId", authUser.id);
       if (file) {
         formData.append("image", file);
       }
 
       setLoading(true);
-      await createPayment(formData);
+      const orderId = await createPayment(formData)
+      console.log("test:", orderId);
 
-      onSuccess();
+      onSuccess(orderId);
     } catch (err) {
       console.log(err);
     } finally {
@@ -42,7 +46,6 @@ export default function Payment({ onSuccess }) {
     <>
       {loading && <Loading />}
       <form className="flex flex-col gap-4" onSubmit={handleSubmitForm}>
-
         {file ? (
           <div
             onClick={() => fileEl.current.click()}

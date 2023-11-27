@@ -5,10 +5,14 @@ import PaymentPage from "../../pages/PaymentPage";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import axios from "axios";
-import e from "cors";
 
 const AdminPaymentCheck = () => {
-  const { getslip, getPayment } = useCart();
+  const { getslip, getPayment, updateStatus } = useCart();
+  const handleUpdateStatus = (id, status) => {
+    console.log("id", id);
+    console.log("status", status);
+    updateStatus(id, status).then((res) => getPayment());
+  };
 
   useEffect(() => {
     getPayment();
@@ -33,11 +37,38 @@ const AdminPaymentCheck = () => {
         <div key={index}>
           <PaymentPage obj={el} />
           <div>
-            {el.id} , {el.user.firstName } {el.user.lastName} {el.payment.map((adminCheckPrice) => (
-              <div> 
-                {adminCheckPrice.totalPrice}
-              </div>
+            {el.id} , {el.user.firstName} {el.user.lastName}{" "}
+            {el.payment.map((adminCheckPrice) => (
+              // eslint-disable-next-line react/jsx-key
+              <>
+                <div>{adminCheckPrice.totalPrice}</div>
+
+                {adminCheckPrice.status === "CONFIRM"|| adminCheckPrice.status === "REJECT" ? (
+                  <div> {adminCheckPrice.status} </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() =>
+                        handleUpdateStatus(adminCheckPrice.id, "CONFIRM")
+                      }
+                    >
+                      {" "}
+                      Confirm{" "}
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        handleUpdateStatus(adminCheckPrice.id, "REJECT")
+                      }
+                    >
+                      {" "}
+                      Reject{" "}
+                    </button>
+                  </>
+                )}
+              </>
             ))}
+            <div>{el.payment.status}</div>
           </div>
 
           <img src={el.paymentImage} alt="" />

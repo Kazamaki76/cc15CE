@@ -1,3 +1,5 @@
+
+
 export default function LoginInput({ onChange, placeholder }) {
     return (
       <input
